@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+{% load static %}
+<h1>Привет, я автор</h1>
+<p>
+  Меня зовут Виктория Сопина, мне 29 лет, я с детства испытываю интерес к компьютерам и всему, что с ними связано.
+  Очень рада, что появилась возможность удаленно обучиться профессии в сфере IT.<br>
+  В данный момент, в связи с отпуском, я выбилась из графика, поэтому допишу сей блок позже.
+</p>
+<div class="list-group">
+    <span style="color:purple"><h5>Мои контакты</h5></span>
+    <aside class="col-12 col-md-3">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item list-group-item-action">
+            <a href="https://github.com/viva-lavita" target="_blank" rel="nofollow">"GitHub"</a>
+          </li>
+          <li class="list-group-item list-group-item-action">
+            <a href="https://vk.com/sovest_ya" target="_blank" rel="nofollow">"Вконтакте"</a>
+          </li>
+        </ul>
+      </aside>
+      <p>
+        <h5>Тест картинки</h5>
+        <style>
+          .image {border:4px solid #3baecf; padding:10px;}
+        </style>
+        <img class="image"
+             src="{% static 'img/cat.jpg' %}" width="250">
+      </p>
+</div>
+{% endblock %}

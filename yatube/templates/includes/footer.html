@@ -1,0 +1,11 @@
+<footer class="page-footer font-small blue border-top">
+        {% with request.resolver_match.view_name as view_name %} 
+        <div class="footer-copyright text-center py-3">
+          <a class="nav-link {% if view_name  == 'about:author' %}active{% endif %}" href="{% url 'about:author' %}">Об авторе</a>
+          <a class="nav-link {% if view_name  == 'about:tech' %}active{% endif %}" href="{% url 'about:tech' %}">Технологии</a>
+        </div>
+        {% endwith %}
+    <div class="footer-copyright text-center py-3">© {{ year }} Copyright 
+      <p><span style="color:red">Ya</span>tube</p>
+    </div>
+</footer>
