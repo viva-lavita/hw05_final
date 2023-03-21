@@ -33,15 +33,13 @@ def group_posts(request, slug):
 
 def profile(request, username):
     template = 'posts/profile.html'
-    user = request.user
+    following = False
     author = get_object_or_404(User, username=username)
     posts = author.posts.all()
     page_obj = paginator(posts, request)
-    if user.is_authenticated and Follow.objects.filter(
-            user=user, author=author):
+    if request.user.is_authenticated and Follow.objects.filter(
+            user=request.user, author=author).exists():
         following = True
-    else:
-        following = False
     context = {
         'author': author,
         'page_obj': page_obj,
@@ -112,22 +110,17 @@ def follow_index(request):
     template = 'posts/follow.html'
     posts = Post.objects.filter(author__following__user=request.user)
     page_obj = paginator(posts, request)
-    context = {
-        'page_obj': page_obj,
-    }
-    return render(request, template, context)
+    return render(request, template, {'page_obj': page_obj})
 
 
 @login_required
 def profile_follow(request, username):
-    author = User.objects.get(username=username)
-    if author != request.user:
-        if Follow.objects.filter(user=request.user,
-                                 author=author).count() == 0:
-            Follow.objects.create(
-                user=request.user,
-                author=author,
-            )
+    author = get_object_or_404(User, username=username)
+    if author == request.user or Follow.objects.filter(
+        user=request.user, author=author
+    ).exists():
+        return redirect('posts:profile', username)
+    Follow.objects.create(user=request.user, author=author)
     return redirect('posts:profile', username)
 
 

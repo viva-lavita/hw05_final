@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from core.models import CreatedModel
-
 
 User = get_user_model()
 
@@ -16,7 +14,7 @@ class Group(models.Model):
         return self.title
 
 
-class Post(CreatedModel):
+class Post(models.Model):
     text = models.TextField(
         'Текст поста',
         help_text='Введите текст поста')
@@ -48,7 +46,7 @@ class Post(CreatedModel):
         return self.text[:15]
 
 
-class Comment(CreatedModel):
+class Comment(models.Model):
     text = models.TextField(
         'Текст комментария',
         help_text='Введите текст комментария')
@@ -61,6 +59,10 @@ class Comment(CreatedModel):
         User,
         on_delete=models.CASCADE,
         related_name='comments',
+    )
+    pub_date = models.DateTimeField(
+        'Дата создания',
+        auto_now_add=True
     )
 
     def __str__(self):
